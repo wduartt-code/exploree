@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#142a30">
+<title>Itapema Vista — Uma cidade, novas perspectivas</title>
+<meta name="description" content="Explore o mapa de Itapema, descubra pontos turísticos e compare distâncias a quatro empreendimentos conceituais em 3D.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="stylesheet" href="vendor/maplibre-gl.css"><link rel="stylesheet" href="style.css">
+<script defer src="vendor/maplibre-gl.js"></script><script type="module" src="app.js"></script>
+</head>
+<body>
+<div id="map" aria-label="Mapa interativo de Itapema"></div><div class="map-vignette"></div>
+<div id="loading" class="loading"><span class="loader-logo">itapema<span>vista</span></span><div class="loadline"></div><p>Preparando sua vista da cidade…</p></div>
+<header class="topbar glass">
+ <button id="home" class="brand" aria-label="Voltar à visão geral"><svg viewBox="0 0 42 42" fill="none"><path d="M4 13c8-10 15 10 24 0s10 0 10 0M4 23c8-10 15 10 24 0s10 0 10 0M4 33c8-10 15 10 24 0" stroke="currentColor" stroke-width="2"/></svg><span>itapema<span class="brand-sub">VISTA</span></span></button>
+ <span class="top-divider"></span><span class="location">SANTA CATARINA, BRASIL</span>
+ <nav class="top-tabs" aria-label="Explorar mapa"><button class="active" data-filter="all">Explorar cidade</button><button data-filter="buildings">Empreendimentos <span>4</span></button><button data-filter="places">Pontos turísticos <span>7</span></button></nav>
+ <button class="icon-button" id="infoButton" title="Sobre este protótipo" aria-label="Sobre este protótipo"><span data-icon="info"></span></button>
+</header>
+<main>
+<section id="intro" class="intro glass">
+ <div class="eyebrow"><span class="live-dot"></span> EXPLORE A COSTA ESMERALDA</div>
+ <h1>Uma cidade.<br>Novas <em>perspectivas.</em></h1>
+ <p>Aproxime-se de Itapema. Descubra lugares e imagine seu próximo endereço.</p>
+ <div class="intro-rule"></div><div class="intro-stats"><span><strong>04</strong> empreendimentos</span><span><strong>07</strong> lugares para descobrir</span></div>
+ <button id="tourButton" class="primary"><span data-icon="play"></span><span>Fazer um passeio</span><span class="arrow">↗</span></button>
+ <div class="demo-label">ESTUDO INTERATIVO · PRÉDIOS FICTÍCIOS</div>
+</section>
+<section id="detail" class="detail glass" hidden aria-live="polite"></section>
+<aside class="map-tools glass" aria-label="Controles do mapa">
+ <button id="resetView" title="Visão geral" aria-label="Visão geral"><span data-icon="home"></span><small>Início</small></button>
+ <button id="toggle3d" class="active" title="Alternar vista 2D e 3D" aria-pressed="true"><b>3D</b><small>Perspectiva</small></button>
+ <button id="toggleBase" title="Alternar satélite e mapa" aria-label="Alternar satélite e mapa"><span data-icon="layers"></span><small>Mapa</small></button>
+ <button id="toggleNight" title="Alternar dia e noite" aria-label="Alternar dia e noite" aria-pressed="false"><span data-icon="moon"></span><small>Noite</small></button>
+ <span class="tool-rule"></span><button id="zoomIn" title="Aproximar" aria-label="Aproximar"><span data-icon="plus"></span></button><button id="zoomOut" title="Afastar" aria-label="Afastar"><span data-icon="minus"></span></button>
+ <button id="fullScreen" title="Tela cheia" aria-label="Tela cheia"><span data-icon="expand"></span></button>
+</aside>
+<div class="compass glass"><button id="north" title="Orientar para o norte" aria-label="Orientar para o norte"><span>N</span><svg id="compassNeedle" viewBox="0 0 32 40"><path d="M16 3 26 32 16 25 6 32Z" fill="#d9e8b3"/><path d="M16 3v22l10 7Z" fill="#658178"/></svg></button></div>
+<div id="tourStatus" class="tour-status glass" hidden><span class="live-dot"></span><span id="tourLabel"></span><button id="stopTour">Encerrar passeio <span>×</span></button></div>
+<div class="map-caption"><span class="caption-line"></span> COSTA ESMERALDA <span>27° S · 48° O</span></div>
+<section class="collection glass" id="collection" aria-label="Empreendimentos de demonstração"><div class="collection-head"><div><span class="eyebrow">ESCOLHA SEU PONTO DE VISTA</span><span class="collection-sub">Quatro endereços para explorar</span></div><button id="collapseCollection" aria-label="Recolher empreendimentos" aria-expanded="true"><span data-icon="chevron"></span></button></div><div id="buildingCards" class="building-cards"></div></section>
+<section id="placesList" class="places-list glass" hidden aria-label="Lista de pontos turísticos"></section>
+</main>
+<footer><span class="footer-note"><i></i> Protótipo · localizações ilustrativas dos prédios</span><a href="./" id="backToVista" style="margin-right:14px">← Vista 3D</a><button id="sourcesButton">Fontes e distâncias</button></footer>
+<div id="toast" class="toast glass" role="status" hidden></div>
+<dialog id="viewerDialog" class="viewer-dialog"><div class="viewer-heading"><div><span class="eyebrow">MAQUETE CONCEITUAL · 3D INTERATIVO</span><h2 id="viewerName"></h2><p id="viewerRegion"></p></div><button id="closeViewer" class="round-button" aria-label="Fechar maquete"><span data-icon="close"></span></button></div><div id="modelCanvas"></div><div class="viewer-bottom"><span><span data-icon="drag"></span> Arraste para girar · use a rolagem para aproximar</span><button id="autoRotate" class="pill active" aria-pressed="true">Rotação automática</button></div><div class="viewer-disclaimer">Modelo fictício para teste de navegação. Não representa um projeto arquitetônico real.</div></dialog>
+<dialog id="infoDialog" class="info-dialog glass"><button id="closeInfo" class="round-button" aria-label="Fechar informações"><span data-icon="close"></span></button><span class="eyebrow">SOBRE A EXPERIÊNCIA</span><h2>Itapema, mais perto.</h2><p>Um protótipo para explorar a cidade, visitar quatro maquetes conceituais e descobrir a relação dos empreendimentos com o entorno.</p><h3>Como ler as distâncias</h3><p>As distâncias são aproximadas, <strong>em linha reta</strong>, calculadas entre as coordenadas dos marcadores. Não são percursos de carro ou caminhada. Para praias, usamos um ponto de referência. O botão “Traçar rota” abre o Google Maps para consultar o trajeto real.</p><h3>O que é demonstrativo</h3><p>Os quatro nomes, terrenos e modelos dos prédios são fictícios. As alturas e os pavimentos servem apenas para visualizar volumes em 3D. Os pontos turísticos são reais, com coordenadas de referência aproximadas.</p><h3>Fontes e créditos</h3><ul><li><a href="https://www.itapema.sc.gov.br/turismo/nossas-praias/" target="_blank" rel="noopener">Prefeitura de Itapema · Praias</a></li><li><a href="https://www.openstreetmap.org/node/4310268362" target="_blank" rel="noopener">OpenStreetMap · Mirante do Encanto</a></li><li><a href="https://periodicos.udesc.br/index.php/percursos/article/download/17694/12209" target="_blank" rel="noopener">UDESC · Referências geográficas do Centro e Canto da Praia</a></li><li><a href="https://openfreemap.org/" target="_blank" rel="noopener">OpenFreeMap / OpenStreetMap · Cartografia</a></li><li><a href="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer" target="_blank" rel="noopener">Esri, Vantor, Earthstar Geographics e GIS User Community · Imagens aéreas</a></li></ul><p class="info-small">As imagens aéreas podem não refletir construções recentes. A maquete detalhada e fotorrealista da cidade é uma etapa futura de produção visual.</p></dialog>
+<noscript>Ative o JavaScript para explorar o mapa de Itapema.</noscript>
+</body></html>
