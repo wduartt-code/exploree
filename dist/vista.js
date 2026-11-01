@@ -157,7 +157,7 @@ async function navigate(){
  else{closeProject();scene=scenes.find(s=>s.id===next.id);layout();await showPlates(scene.id);drawScene();const [fx,fy]=focus();center(fx,fy,1);if(next.place)placeCard(next.place);}
  crumbs();tools();document.title=next.type==='project'?`${buildings.find(b=>b.id===next.id).name} · Itapema Vista`:scene.id==='itapema'?'Itapema Vista':`${scene.name} · Itapema Vista`;
  $('curtain').classList.add('out');
- if(prev){const anim=old.animate([{opacity:1},{opacity:0}],{duration:reduced?0:650,easing:'ease-in-out',fill:'forwards'});await anim.finished;old.remove();}
+ if(prev){if(next.type==='scene'&&oldScene?.id!==next.id&&next.id!=='itapema'){const [fx,fy]=focus();flyTo(fx,fy,1.12,850);}const anim=old.animate([{opacity:1},{opacity:0}],{duration:reduced?0:850,easing:'ease-in-out',fill:'forwards'});await anim.finished;old.remove();}
 }
 
 function veil(on){const c=$('curtain');return new Promise(r=>{if(on){c.classList.remove('out');c.classList.add('veil');setTimeout(r,reduced?0:350);}else{c.classList.add('out');setTimeout(()=>{c.classList.remove('veil');r();},reduced?0:450);}});}
