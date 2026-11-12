@@ -26,9 +26,8 @@ Este projeto segue o mesmo padrão:
   - Arrastar, pinça e rolagem para zoom; duplo clique aproxima; setas e +/− no teclado.
   - Áreas dos bairros e pílulas clicáveis; pinos de pontos turísticos com cartão e distâncias; medalhões dos prédios com haste até o terreno.
   - Modo noite (troca de render com luzes da cidade), nuvens à deriva, camadas, favoritos, compartilhar, tela cheia, trilha de navegação e Voltar.
-  - Região do prédio: perspectiva arquitetônica com edifício clicável → LP própria em `produto.html?id=brisa` (ou vista, horizonte, atlantico). A maquete Three.js é opcional.
+  - Região do prédio: perspectiva arquitetônica com edifício clicável. A maquete Three.js é opcional.
   - Endereços diretos: `#/`, `#/meia-praia`, `#/horizonte`. Links antigos (`#vista`) continuam funcionando.
-- `mapa.html` — o mapa 2D/3D interativo anterior (MapLibre), mantido como ferramenta complementar.
 
 ### Gerar ou refazer os renders
 
@@ -60,7 +59,6 @@ As distâncias são calculadas pela fórmula de Haversine com raio terrestre mé
 | `tools/render-scenes.mjs` | Gera os renders pelo Chrome sem interface |
 | `tools/make-clouds.py` | Gera as nuvens (Pillow) |
 | `dist/data.js` | Prédios, atrações, bairros, câmeras das cenas e cálculo das distâncias |
-| `dist/mapa.html`, `dist/app.js` | Mapa interativo anterior |
 | `dist/viewer.js` | Maquetes procedurais em Three.js |
 | `dist/graphics.js` | Ícones e desenhos vetoriais dos prédios |
 | `dist/style.css` | Aparência, temas e layout responsivo |
@@ -90,7 +88,7 @@ Sete testes verificam a posição dos pinos dentro de cada render e distância d
 
 ## Refinamento visual — 1/11/2026
 
-Fluxo: cidade → bairro → região do edifício → página do produto. Imagens decodificadas antecipadamente; câmera interpolada por requestAnimationFrame, sem cortina preta entre cenas e sem recuo automático na chegada. A troca de enquadramentos ainda usa dissolução entre imagens pré-renderizadas: não é voo sobre malha 3D contínua. Inclinação visual leve aplicada conjuntamente às imagens e marcadores.
+Fluxo: cidade → bairro → região do edifício. Imagens decodificadas antecipadamente; câmera interpolada por requestAnimationFrame, sem cortina preta entre cenas e sem recuo automático na chegada. A troca de enquadramentos ainda usa dissolução entre imagens pré-renderizadas: não é voo sobre malha 3D contínua. Inclinação visual leve aplicada conjuntamente às imagens e marcadores.
 
 Novas nuvens vistas de cima em `dist/clouds/aerial-cloud.webp`, produzidas com imagegen integrado. Prompt: `assets-prompt-cloud-v2.md`. Cenas artísticas em `dist/renders/premium/`; perspectivas arquitetônicas em `dist/renders/architecture/`. Prompts completos nos arquivos `assets-prompts-*.md`. Originais gerados em 1672×941, sem alegação de 4K nativo. Modelos Blender editáveis em `production/blender/`; acabamento das perspectivas assistido por IA. Não são fotografias documentais ou levantamento cadastral.
 

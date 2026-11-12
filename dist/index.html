@@ -7,15 +7,18 @@
 <meta name="description" content="Sobrevoe Itapema em vistas aéreas 3D, conheça os bairros, os pontos turísticos e quatro empreendimentos conceituais.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Marcellus&display=swap">
-<link rel="stylesheet" href="vista.css?v=20261101-flight">
-<script type="module" src="vista.js?v=20261101-flight"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+<link rel="stylesheet" href="vista.css?v=20261112-main3">
+<script type="module" src="vista.js?v=20261112-main3"></script>
 </head>
-<body>
+<body class="hide-districts">
 <div id="stage" class="stage" aria-label="Vista aérea interativa">
  <div id="world" class="world">
   <img id="imgDay" class="plate" alt="" draggable="false"><img id="imgNight" class="plate night-plate" alt="" draggable="false">
+  <div id="dim" class="dim"></div>
   <svg id="areas" class="areas" viewBox="0 0 1 1" preserveAspectRatio="none" aria-hidden="true"></svg>
+  <svg id="routes" class="routes" aria-hidden="true"></svg>
+  <div id="wclouds" class="wclouds" aria-hidden="true"></div>
   <div id="pins" class="pins"></div>
  </div>
  <div id="clouds" class="clouds" aria-hidden="true"></div>
@@ -25,7 +28,6 @@
 <section id="project" class="project" hidden aria-live="polite">
  <div id="projectBackdrop" class="project-backdrop"></div>
  <img id="projectHero" class="project-hero" alt="" draggable="false"><div class="project-shade"></div>
- <div id="model" class="model" hidden></div>
  <article id="projectInfo" class="project-info"></article>
 </section>
 
@@ -39,10 +41,14 @@
 
 <nav id="journey" class="journey glass" aria-label="Explorar a cidade"></nav>
 <div id="zoomControls" class="zoom-controls glass"><button data-tool="zoomIn" aria-label="Aproximar">+</button><button data-tool="zoomOut" aria-label="Afastar">−</button></div>
-<div id="filters" class="filters glass" hidden>
- <span>Mostrar</span>
- <button data-layer="buildings" class="on">Empreendimentos</button>
- <button data-layer="places" class="on">Pontos turísticos</button>
+<div id="filters" class="filters glass">
+ <button class="filters-head" data-filter-toggle aria-label="Mostrar ou ocultar filtros">Filtrar<svg viewBox="0 0 24 24"><path d="m6 15 6-6 6 6"/></svg></button>
+ <div class="filters-body">
+  <button data-layer="buildings" class="on">Empreendimentos</button>
+  <button data-layer="places" class="on">Pontos turísticos</button>
+  <button data-layer="districts">Bairros</button>
+  <button class="hide-all" data-hide-all>Ocultar tudo</button>
+ </div>
 </div>
 
 <footer class="corner">
@@ -54,15 +60,15 @@
 <div id="card" class="card glass" hidden></div>
 <div id="hint" class="hint glass" hidden>Arraste para explorar · role para aproximar</div>
 <div id="toast" class="toast glass" role="status" hidden></div>
+<div id="tveil" class="tveil" aria-hidden="true"></div>
 <div id="curtain" class="curtain"><div class="logo">ITAPEMA<small>VISTA</small></div><div class="bar"><i></i></div></div>
 
 <dialog id="aboutDialog" class="dialog glass">
  <button class="close" data-close aria-label="Fechar">×</button>
  <h2>Sobre a experiência</h2>
- <p>As vistas são <strong>interpretações artísticas de Itapema</strong>, refinadas com IA a partir de uma base de relevo, imagens aéreas e cartografia. A arquitetura usa modelos criados no Blender com acabamento assistido por IA. Edificações, vegetação e detalhes da paisagem são ilustrativos; o mapa 2D permite consultar as posições geográficas. As quatro torres e seus terrenos são <strong>fictícios</strong>.</p>
+ <p>As vistas são <strong>interpretações artísticas de Itapema</strong>, refinadas com IA a partir de uma base de relevo, imagens aéreas e cartografia. A arquitetura usa modelos criados no Blender com acabamento assistido por IA. Edificações, vegetação e detalhes da paisagem são ilustrativos. As quatro torres e seus terrenos são <strong>fictícios</strong>.</p>
  <p>Distâncias aproximadas, em linha reta, entre as coordenadas dos marcadores. Para trajetos reais, use “Traçar rota”.</p>
  <p class="small">Imagens: Esri, Vantor, Earthstar Geographics e GIS User Community · Relevo: Mapzen Terrain Tiles na AWS · Cartografia: OpenFreeMap e colaboradores do OpenStreetMap · Atrações: Prefeitura de Itapema, OpenStreetMap e UDESC.</p>
- <p><a href="mapa.html">Abrir o mapa 2D interativo ↗</a></p>
 </dialog>
 </body>
 </html>
